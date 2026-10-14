@@ -103,3 +103,21 @@ y la ruta `/periodica/` (o se publica como aplicación externa y se enlaza
   inventadas como si fueran fotografías reales.
 - Un esquema tipo Bohr no describe con exactitud orbitales cuánticos; solo
   representa visualmente el tema atómico.
+
+## Publicación en GitHub Pages
+
+Repositorio: https://github.com/ElGeras90/tablaperiodica
+
+URL prevista cuando GitHub Pages esté habilitado:
+https://elgeras90.github.io/tablaperiodica/periodica/
+
+- La raíz `/` redirige a `/periodica/`.
+- El contenido estático se almacena bajo `periodica/`.
+- El workflow `.github/workflows/pages.yml` despliega automáticamente cada push a `main`.
+
+**Activación inicial (una sola vez):**
+1. Abrir https://github.com/ElGeras90/tablaperiodica/settings/pages
+2. En *Build and deployment* seleccionar **GitHub Actions** como *Source*.
+3. Abrir la pestaña Actions, seleccionar `Publicar tabla periódica en GitHub Pages` y reejecutar el flujo fallido o iniciar *Run workflow*.
+
+GitHub Pages debe estar habilitado para que `actions/configure-pages` y `actions/deploy-pages` funcionen. El archivo YAML por sí solo no lo activa en un repositorio nuevo sin un token de administración de Pages. No agregues tokens privados al repositorio.
