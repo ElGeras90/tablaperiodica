@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070b15" />
+  <meta name="description" content="Tabla periódica 3D interactiva con fotografías de elementos químicos, 118 elementos, fichas científicas de PubChem, electrones, densidad, temperatura y más." />
+  <title>Periodic 3D — El universo de los elementos</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="ambient ambient-a" aria-hidden="true"></div>
+  <div class="ambient ambient-b" aria-hidden="true"></div>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Periodic 3D, inicio">
+        <span class="brand-icon" aria-hidden="true"><span class="brand-orbit"></span><span class="brand-core"></span></span>
+        <span>PERIODIC<span class="brand-emphasis">3D</span></span>
+      </a>
+      <nav class="top-nav" aria-label="Navegación principal">
+        <a class="active" href="#explorar">Explorar</a>
+        <a href="#familias">Familias</a>
+        <a href="#aprende">Aprende</a>
+      </nav>
+      <div class="top-badge"><span class="status-dot"></span> LABORATORIO INTERACTIVO <span class="version">/ 01</span></div>
+    </header>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-left">
+        <p class="eyebrow"><span class="eyebrow-line"></span> LA CIENCIA ESTÁ EN TUS MANOS</p>
+        <h1 id="hero-title">El universo de<br /><span>los elementos<span class="title-dot">.</span></span></h1>
+        <p class="hero-description">Explora fotografías de muestras auténticas, su estructura atómica didáctica y propiedades científicas documentadas por PubChem. Sin datos inventados.</p>
+        <div class="hero-actions">
+          <a href="#explorar" class="primary-link">Comenzar a explorar <span aria-hidden="true">↗</span></a>
+          <span class="hero-tip"><span aria-hidden="true">◌</span> Muestras reales · Datos científicos · Exploración 3D</span>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-visual-glow"></div>
+        <div class="hero-nucleus"><span></span></div>
+        <div class="hero-orbit orbit-1"><span></span></div>
+        <div class="hero-orbit orbit-2"><span></span></div>
+        <div class="hero-orbit orbit-3"><span></span></div>
+        <div class="hero-callout callout-top"><span>01</span> ATOMIC STRUCTURE</div>
+        <div class="hero-callout callout-bottom">H₂O <span>→</span> UNIVERSO</div>
+      </div>
+      <div class="hero-stats" aria-label="Datos de la tabla periódica">
+        <div><strong>118</strong><small>ELEMENTOS</small></div>
+        <div><strong>18</strong><small>GRUPOS</small></div>
+        <div><strong>07</strong><small>PERÍODOS</small></div>
+      </div>
+    </section>
+
+    <main id="explorar" class="explorer-section">
+      <div class="section-heading">
+        <div><p class="eyebrow section-eyebrow">01 / EXPLORA LA MATERIA</p><h2>Tabla periódica <span>interactiva</span></h2></div>
+        <p>Selecciona un elemento para ver su fotografía y su ficha científica.</p>
+      </div>
+
+      <div class="workspace">
+        <section class="main-board" aria-labelledby="board-title">
+          <h3 id="board-title" class="sr-only">Visualizador tridimensional de elementos</h3>
+          <div class="toolbar">
+            <div class="searchbox">
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"><circle cx="10.7" cy="10.7" r="6.6" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m15.6 15.6 5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              <input id="search" type="search" placeholder="Buscar elemento o símbolo..." autocomplete="off" aria-label="Buscar elemento o símbolo" />
+              <kbd>/</kbd>
+            </div>
+            <div class="layout-controls" role="group" aria-label="Disposición 3D">
+              <button class="layout-btn active" data-layout="table" type="button" aria-pressed="true" title="Vista tabla">▦ <span>Tabla</span></button>
+              <button class="layout-btn" data-layout="sphere" type="button" aria-pressed="false" title="Vista esfera">◉ <span>Esfera</span></button>
+              <button class="layout-btn" data-layout="helix" type="button" aria-pressed="false" title="Vista hélice">⟲ <span>Hélice</span></button>
+            </div>
+          </div>
+
+          <div class="category-scroller" id="familias"><div class="categories" id="categories" role="group" aria-label="Filtrar por familia química"></div></div>
+
+          <div class="scene-wrap">
+            <div class="scene-meta"><span><span class="indicator"></span> MODELO EN TIEMPO REAL</span><span id="countLabel">118 / 118 ELEMENTOS</span></div>
+            <div class="scene" id="scene" aria-label="Tabla periódica en tres dimensiones. Puedes seleccionar cada elemento." tabindex="0">
+              <div class="scene-grid" aria-hidden="true"></div>
+              <div class="world" id="world"></div>
+              <div class="scene-hint" id="sceneHint">✥ &nbsp; ARRASTRA EL ESPACIO LIBRE PARA ROTAR</div>
+            </div>
+            <div class="scene-footer">
+              <div class="view-info"><span class="info-icon">i</span><span id="viewDescription">Vista tabla · Períodos 1–7 · Series inferiores: lantánidos y actínidos</span></div>
+              <div class="scene-buttons">
+                <button id="zoomOut" type="button" aria-label="Alejar" title="Alejar">−</button>
+                <span id="zoomLabel" aria-live="polite">100%</span>
+                <button id="zoomIn" type="button" aria-label="Acercar" title="Acercar">+</button>
+                <button id="resetView" class="reset-btn" type="button" title="Restablecer vista">↺ <span>Restablecer</span></button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="detail-panel" aria-labelledby="detail-title">
+          <div class="detail-heading"><span class="panel-eyebrow">ELEMENTO SELECCIONADO</span><span class="panel-live"><span></span> EN VIVO</span></div>
+          <div class="visual-switch" role="group" aria-label="Tipo de visualización del elemento">
+            <button type="button" class="visual-btn active" data-visual="sample" aria-pressed="true">◈ Muestra real</button>
+            <button type="button" class="visual-btn" data-visual="atom" aria-pressed="false">◎ Átomo didáctico</button>
+          </div>
+          <figure class="sample-visual" id="sampleVisual" aria-label="Fotografía de muestra física del elemento">
+            <div class="sample-placeholder" id="samplePlaceholder"><div class="sample-symbol" id="sampleSymbol">H</div><span id="sampleMessage">Buscando fotografía documental…</span></div>
+            <img id="sampleImage" alt="" loading="lazy" hidden />
+            <figcaption><span class="live-dot"></span><span id="sampleCaption">FOTOGRAFÍA DOCUMENTAL</span></figcaption>
+          </figure>
+          <div class="detail-atom atom-mode" id="atomVisual" aria-label="Modelo atómico didáctico, no representa trayectorias reales de electrones" hidden><div class="atom-ring atom-ring-a"><b></b></div><div class="atom-ring atom-ring-b"><b></b></div><div class="atom-ring atom-ring-c"><b></b></div><div class="atom-center" id="atomCenter">H</div><div class="atom-disclaimer">Esquema artístico, no una fotografía de un átomo</div></div>
+          <div class="detail-number" id="detailNumber">Nº 001 <span>—</span> ELEMENTO</div>
+          <div class="element-header"><div><h3 id="detail-title">Hidrógeno</h3><p id="detailFamily">No metal</p></div><div class="detail-symbol" id="detailSymbol">H</div></div>
+          <p class="element-description" id="elementDescription">El elemento más ligero y el más abundante del universo. Presente en las estrellas y en el agua.</p>
+          <p class="data-status" id="dataStatus" aria-live="polite">Consultando fuentes científicas…</p>
+          <div class="properties-title">PROPIEDADES FUNDAMENTALES <span>↗</span></div>
+          <dl class="properties">
+            <div><dt>Número atómico</dt><dd id="propNumber">1</dd></div>
+            <div><dt>Masa atómica</dt><dd id="propMass">1.008 u</dd></div>
+            <div><dt>Grupo</dt><dd id="propGroup">1</dd></div>
+            <div><dt>Período</dt><dd id="propPeriod">1</dd></div>
+            <div><dt>Estado estándar</dt><dd id="propPhase">Gas</dd></div>
+            <div><dt>Configuración electrónica</dt><dd id="propConfig">Cargando…</dd></div>
+            <div><dt>Electronegatividad (Pauling)</dt><dd id="propElectronegativity">Cargando…</dd></div>
+          </dl>
+          <button class="full-data-button" type="button" id="openSheet">VER FICHA CIENTÍFICA COMPLETA <span>↗</span></button>
+          <div class="detail-footer"><span>FOTOGRAFÍAS CON CRÉDITOS DE AUTOR</span><span class="detail-arrow">↗</span></div>
+        </aside>
+      </div>
+    </main>
+
+    <section class="source-note" aria-label="Procedencia de los datos">
+      <div class="source-note-mark">◎</div>
+      <div><strong>Fuentes científicas y fotografías originales</strong><p>Propiedades: PubChem / NIH, con unidades indicadas. Imágenes: Wikimedia Commons con atribución cuando existe. Los elementos ultrapesados pueden carecer de fotografías o propiedades medidas; los valores desconocidos no se sustituyen por predicciones.</p></div>
+      <a href="https://pubchem.ncbi.nlm.nih.gov/periodic-table/" target="_blank" rel="noopener noreferrer">Explorar PubChem ↗</a>
+    </section>
+
+    <section class="learn-section" id="aprende">
+      <div><p class="eyebrow section-eyebrow">02 / APRENDE EXPLORANDO</p><h2>Todo está hecho <span>de algo.</span></h2><p>Desde el oxígeno que respiramos hasta el silicio de tus dispositivos. Explora, compara y comprende los elementos que dan forma al mundo.</p></div>
+      <div class="learn-card"><div class="learn-icon">✳</div><h3>¿Cómo usar el explorador?</h3><p>Selecciona cualquier elemento para conocer cómo luce una muestra física; pulsa «Ver ficha científica completa» para consultar sus propiedades. El dibujo de los electrones es únicamente didáctico y no representa órbitas físicas.</p><div class="key-shortcuts"><span><kbd>/</kbd> Buscar</span><span><kbd>Esc</kbd> Limpiar</span><span><kbd>↺</kbd> Restablecer</span></div></div>
+    </section>
+
+    <footer><div class="footer-brand">PERIODIC<span>3D</span> <span class="footer-sep">/</span> EXPLORADOR DE ELEMENTOS</div><div>Datos científicos: PubChem · Fotografías: Wikimedia Commons</div><a href="https://iupac.org/what-we-do/periodic-table-of-elements/" target="_blank" rel="noopener noreferrer">Referencia: IUPAC ↗</a></footer>
+  </div>
+  <div class="science-overlay" id="scienceModal" aria-hidden="true">
+    <section class="science-dialog" role="dialog" aria-modal="true" aria-labelledby="modalName" tabindex="-1">
+      <header class="science-head">
+        <div class="science-heading"><span class="science-kicker">EXPEDIENTE CIENTÍFICO / ELEMENTO <span id="modalNum">001</span></span><h2 id="modalName">Hidrógeno</h2><p id="modalSubtitle">H · No metal · Estado estándar: gas</p></div>
+        <div class="science-head-actions"><button type="button" id="modalPrevious" title="Elemento anterior" aria-label="Elemento anterior">←</button><button type="button" id="modalNext" title="Elemento siguiente" aria-label="Elemento siguiente">→</button><button type="button" id="closeSheet" class="close-sheet" aria-label="Cerrar ficha científica">✕</button></div>
+      </header>
+      <div class="science-body">
+        <section class="specimen-column" aria-labelledby="specimenHeading">
+          <div class="specimen-label"><span>01 / OBSERVACIÓN</span><strong id="specimenHeading">Apariencia física del elemento</strong></div>
+          <div class="specimen-frame" id="modalSpecimen">
+            <img id="modalImage" alt="" hidden />
+            <div class="specimen-empty" id="modalImagePlaceholder"><span id="modalPlaceholderSymbol">H</span><p id="modalPlaceholderText">Buscando fotografía de muestra auténtica…</p></div>
+          </div>
+          <p class="photo-title" id="modalPhotoTitle">Fotografía de una muestra física cuando está disponible.</p>
+          <p class="photo-credit" id="modalPhotoCredit">Fuente y autor de la fotografía</p>
+          <a class="photo-link" id="modalPhotoLink" href="https://commons.wikimedia.org" target="_blank" rel="noopener noreferrer" hidden>VER IMAGEN ORIGINAL Y LICENCIA ↗</a>
+          <div class="specimen-meta"><span>ASPECTO DOCUMENTADO</span><p id="modalAppearance">Sin descripción publicada</p></div>
+          <div class="physical-warning">Las fotos muestran muestras físicas (a veces bajo condiciones especiales), no átomos individuales. Un gas incoloro puede aparecer brillante en un tubo de descarga.</div>
+        </section>
+        <section class="science-properties" aria-labelledby="propertiesHeading">
+          <div class="specimen-label"><span>02 / PROPIEDADES</span><strong id="propertiesHeading">Datos del elemento</strong></div>
+          <p id="modalDataStatus" class="modal-data-status">Consultando fuente científica…</p>
+          <div class="science-grid" id="scienceGrid"></div>
+          <div class="electron-section"><div class="specimen-label"><span>03 / CONFIGURACIÓN</span><strong>Distribución electrónica</strong></div><div class="shell-list" id="electronShells"></div><p class="physical-warning">Las capas representan ocupación electrónica por nivel principal. No son órbitas planetarias observadas.</p></div>
+          <div class="reference-section"><strong>Fuentes y metodología</strong><p>PubChem, servicio PUG REST de los Institutos Nacionales de Salud de EE. UU. Fotografía y créditos del catálogo abierto Periodic-Table-JSON, cuando existen. «No disponible» significa que la fuente no ofrece un valor comprobable para ese campo.</p><div class="science-references"><a href="https://pubchem.ncbi.nlm.nih.gov/periodic-table/" target="_blank" rel="noopener noreferrer">PubChem (NIH) ↗</a><a href="https://iupac.org/what-we-do/periodic-table-of-elements/" target="_blank" rel="noopener noreferrer">IUPAC ↗</a><a href="https://github.com/Bowserinator/Periodic-Table-JSON" target="_blank" rel="noopener noreferrer">Imágenes y referencias ↗</a></div></div>
+        </section>
+      </div>
+    </section>
+  </div>
+  <script src="./data.js"></script>
+  <script src="./app.js"></script>
+  <script src="./science.js"></script>
+</body>
+</html>
