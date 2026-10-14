@@ -1,0 +1,49 @@
+name: Publicar tabla periódica en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Publicar sitio estático
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Comprobar archivos
+        shell: bash
+        run: |
+          test -s index.html
+          test -s periodica/index.html
+          test -s periodica/styles.css
+          test -s periodica/data.js
+          test -s periodica/app.js
+          test -s periodica/science.js
+          echo "Sitio estático listo."
+
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+
+      - name: Preparar los archivos del sitio
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .
+
+      - name: Desplegar GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
